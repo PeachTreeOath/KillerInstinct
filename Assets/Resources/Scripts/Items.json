@@ -1,0 +1,62 @@
+{
+	"hat" : [{
+			"name" : "Ribbon"
+		}, {
+			"name" : "Cap"
+		}, {
+			"name" : "Cat Ears"
+		}, {
+			"name" : "Cowboy Hat"
+		}, {
+			"name" : "Crown"
+		}
+	],
+	"shirt" : [{
+			"name" : "Tie"
+		}, {
+			"name" : "T-Shirt"
+		}, {
+			"name" : "Vest"
+		}, {
+			"name" : "Gown"
+		}, {
+			"name" : "Armor"
+		}
+	],
+	"weapon" : [{
+			"name" : "Mic"
+		}, {
+			"name" : "Flower"
+		}, {
+			"name" : "Wand"
+		}, {
+			"name" : "Sword"
+		}, {
+			"name" : "Zeus Bolt"
+		}
+	],
+	"pants" : [{
+			"name" : "Shorts"
+		}, {
+			"name" : "Yoga Pants"
+		}, {
+			"name" : "Camo Pants"
+		}, {
+			"name" : "Dress"
+		}, {
+			"name" : "Skirt"
+		}
+	],
+	"shoes" : [{
+			"name" : "Sandals"
+		}, {
+			"name" : "Boots"
+		}, {
+			"name" : "Paws"
+		}, {
+			"name" : "Robot"
+		}, {
+			"name" : "Slippers"
+		}
+	]
+}
