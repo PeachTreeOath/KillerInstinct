@@ -58,5 +58,32 @@
 		}, {
 			"name" : "Slippers"
 		}
+	],
+	"stage" : [{
+			"text" : "Stage 1: School",
+			"fansNeeded" : 5,
+			"crowdNum" : 1,
+			"enemyHp" : 10
+		}, {
+			"text" : "Stage 2: Club",
+			"fansNeeded" : 50,
+			"crowdNum" : 2,
+			"enemyHp" : 20
+		}, {
+			"text" : "Stage 3: Theatre",
+			"fansNeeded" : 250,
+			"crowdNum" : 4,
+			"enemyHp" : 30
+		}, {
+			"text" : "Stage 4: Stadium",
+			"fansNeeded" : 5,
+			"crowdNum" : 6,
+			"enemyHp" : 40
+		}, {
+			"text" : "Stage 5: Space",
+			"fansNeeded" : 5,
+			"crowdNum" : 7,
+			"enemyHp" : 50
+		}
 	]
 }
