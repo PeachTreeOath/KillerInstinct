@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace KI
 {
-    public class Item
+    public class Item : MonoBehaviour
     {
 
         public enum ItemType

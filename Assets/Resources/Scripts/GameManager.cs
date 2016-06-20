@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+
 namespace KI
 {
     public class GameManager : MonoBehaviour
@@ -14,6 +16,7 @@ namespace KI
 
         // Stage vars
         private int stage;
+        private int fans;
         private int fansNeeded;
         private int crowdNum;
         private int enemyHpTotal;
@@ -25,6 +28,7 @@ namespace KI
             gameData = new GameData();
 
             ChangeStage(1);
+            Invoke("CalculateDamage", 1f);
         }
 
         // Update is called once per frame
@@ -38,7 +42,7 @@ namespace KI
             if (isPlayerTurn)
             {
                 // Do 1-5 dmg by default
-                int dmg = Random.Range(1, 6) + (int)(player.statVoice * 0.33f);
+                int dmg = UnityEngine.Random.Range(1, 6) + (int)(player.statVoice * 0.33f);
                 enemyHp -= dmg;
             }
             else
@@ -50,19 +54,34 @@ namespace KI
                 //4: 7-11
                 //5: 11-16
 
-                int dmg = Random.Range(0, stage + 1) + CalculateEnemyDamageForStage(stage);
-                player.currHp -= dmg;
+                int dmg = UnityEngine.Random.Range(0, stage + 1) + CalculateEnemyDamageForStage(stage);
+                player.TakeDamage(dmg);
             }
 
             if (player.currHp <= 0)
             {
-
+                ResetFight();
             }
+
+            if (enemyHp <= 0)
+            {
+                ResetFight();
+                KillMonster();
+            }
+
+            isPlayerTurn = !isPlayerTurn; //TODO Remove
+            Invoke("CalculateDamage", 1f); //TODO Remove
+        }
+
+        private void KillMonster()
+        {
+            int levelBonus = stage * stage;
+            fans += player.statPop / 4 + levelBonus;
         }
 
         private void ResetFight()
         {
-            player.currHp = player.totalHp;
+            player.ResetLife();
             enemyHp = enemyHpTotal;
         }
 
