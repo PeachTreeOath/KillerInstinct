@@ -7,9 +7,9 @@ namespace KI
 {
     public class GameManager : MonoBehaviour
     {
-
         private Player player;
         private GameData gameData;
+        private GameObject cardPrefab;
 
         // Battle vars
         private int enemyHp;
@@ -25,6 +25,7 @@ namespace KI
 
         void Awake()
         {
+            cardPrefab = Resources.Load<GameObject>("Prefabs/ItemCard");
             enemyHpText = GameObject.Find("Canvas").transform.Find("EnemyHp").Find("EnemyHpText").GetComponent<Text>();
         }
 
@@ -86,7 +87,7 @@ namespace KI
         {
             int levelBonus = stage * stage;
             fans += player.statPop / 4 + levelBonus;
-            CreateItem();
+            RevealGifts(); //TODO delay this
         }
 
         private void ResetFight()
@@ -125,10 +126,17 @@ namespace KI
             return tempStage - 1 + CalculateEnemyDamageForStage(tempStage - 1);
         }
 
+        private void RevealGifts()
+        {
+            Item item1 = CreateItem();
+            ItemCard card1 = ((GameObject)Instantiate(cardPrefab, Vector3.zero, Quaternion.identity)).GetComponent<ItemCard>();
+            card1.CreateCard(item1);
+        }
+
         private Item CreateItem()
         {
             int dieRoll = UnityEngine.Random.Range(0, 100) + player.statLuck / 2;
-            //  int itemLimit = player.hasEmptyPotionSlot() ? 6 : 5; //TODO
+            //  int itemLimit = player.hasEmptyPotionSlot() ? 6 : 5; //TODO finish potions
             int itemLimit = 5;
             Item.ItemType type = (Item.ItemType)UnityEngine.Random.Range(0, itemLimit);
 
