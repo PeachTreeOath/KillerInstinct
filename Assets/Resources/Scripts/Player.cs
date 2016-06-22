@@ -27,10 +27,15 @@ namespace KI
 
         private Text hpText;
 
+        void Awake()
+        {
+            hpText = GameObject.Find("Canvas").transform.Find("PlayerHp").Find("PlayerHpText").GetComponent<Text>();
+        }
+
         // Use this for initialization
         void Start()
         {
-            hpText = GameObject.Find("Canvas").transform.FindChild("PlayerHpText").GetComponent<Text>();
+
         }
 
         // Update is called once per frame
@@ -49,6 +54,11 @@ namespace KI
         {
             currHp = totalHp;
             SetHpText();
+        }
+
+        public bool hasEmptyPotionSlot()
+        {
+            return potion1 || potion2 || potion3;
         }
 
         private void SetHpText()

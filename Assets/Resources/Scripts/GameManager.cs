@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System;
 
@@ -12,6 +13,8 @@ namespace KI
 
         // Battle vars
         private int enemyHp;
+        private int enemyTotalHp;
+        private Text enemyHpText;
         private bool isPlayerTurn = true;
 
         // Stage vars
@@ -19,7 +22,11 @@ namespace KI
         private int fans;
         private int fansNeeded;
         private int crowdNum;
-        private int enemyHpTotal;
+
+        void Awake()
+        {
+            enemyHpText = GameObject.Find("Canvas").transform.Find("EnemyHp").Find("EnemyHpText").GetComponent<Text>();
+        }
 
         // Use this for initialization
         void Start()
@@ -44,6 +51,14 @@ namespace KI
                 // Do 1-5 dmg by default
                 int dmg = UnityEngine.Random.Range(1, 6) + (int)(player.statVoice * 0.33f);
                 enemyHp -= dmg;
+
+                if (enemyHp <= 0)
+                {
+                    ResetFight();
+                    KillMonster();
+                }
+
+                SetEnemyHpText();
             }
             else
             {
@@ -56,17 +71,11 @@ namespace KI
 
                 int dmg = UnityEngine.Random.Range(0, stage + 1) + CalculateEnemyDamageForStage(stage);
                 player.TakeDamage(dmg);
-            }
 
-            if (player.currHp <= 0)
-            {
-                ResetFight();
-            }
-
-            if (enemyHp <= 0)
-            {
-                ResetFight();
-                KillMonster();
+                if (player.currHp <= 0)
+                {
+                    ResetFight();
+                }
             }
 
             isPlayerTurn = !isPlayerTurn; //TODO Remove
@@ -77,12 +86,19 @@ namespace KI
         {
             int levelBonus = stage * stage;
             fans += player.statPop / 4 + levelBonus;
+            CreateItem();
         }
 
         private void ResetFight()
         {
             player.ResetLife();
-            enemyHp = enemyHpTotal;
+            enemyHp = enemyTotalHp;
+            SetEnemyHpText();
+        }
+
+        private void SetEnemyHpText()
+        {
+            enemyHpText.text = enemyHp + " / " + enemyTotalHp;
         }
 
         private void ChangeStage(int newStage)
@@ -94,7 +110,7 @@ namespace KI
             //TODO change 3d text to stage text
             fansNeeded = stageData.fansNeeded;
             crowdNum = stageData.crowdNum;
-            enemyHpTotal = stageData.enemyHp;
+            enemyTotalHp = stageData.enemyHp;
 
             ResetFight();
         }
@@ -109,5 +125,98 @@ namespace KI
             return tempStage - 1 + CalculateEnemyDamageForStage(tempStage - 1);
         }
 
+        private Item CreateItem()
+        {
+            int dieRoll = UnityEngine.Random.Range(0, 100) + player.statLuck / 2;
+            //  int itemLimit = player.hasEmptyPotionSlot() ? 6 : 5; //TODO
+            int itemLimit = 5;
+            Item.ItemType type = (Item.ItemType)UnityEngine.Random.Range(0, itemLimit);
+
+            int pop = UnityEngine.Random.Range(1, stage * 2);
+            int voice = UnityEngine.Random.Range(1, stage * 2);
+            int spirit = UnityEngine.Random.Range(1, stage * 2);
+            int dance = UnityEngine.Random.Range(1, stage * 2);
+            int luck = UnityEngine.Random.Range(1, stage * 2);
+
+            // Item Level Generation: For each stage, you can roll items from current stage and previous 2 stages, ie. Stage 3 can roll items from Stages 1-3
+            int levelRoll = UnityEngine.Random.Range(0, 3);
+            int level = Mathf.Clamp(stage - levelRoll, 1, int.MaxValue);
+
+            // Item Stat Generation: Create array with all 5 stats filled, remove them as rarity decreases
+            int rarity = 0;
+            bool[] statsToRemove = new bool[5];
+
+            // Legendary
+            if (dieRoll > 99)
+            {
+                // No stat removal
+                rarity = 5;
+            }
+            // Epic
+            else if (dieRoll > 90)
+            {
+                rarity = 4;
+            }
+            // Rare
+            else if (dieRoll > 75)
+            {
+                rarity = 4;
+            }
+            // Uncommon
+            else if (dieRoll > 50)
+            {
+                rarity = 2;
+            }
+            // Common
+            else
+            {
+                rarity = 1;
+            }
+
+            RemoveStats(statsToRemove, 5 - rarity);
+
+            for (int i = 0; i < 5; i++)
+            {
+                if (statsToRemove[i])
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            pop = 0;
+                            break;
+                        case 1:
+                            voice = 0;
+                            break;
+                        case 2:
+                            spirit = 0;
+                            break;
+                        case 3:
+                            dance = 0;
+                            break;
+                        case 4:
+                            luck = 0;
+                            break;
+                    }
+                }
+            }
+
+            return new Item(type, rarity - 1, level - 1, pop, voice, spirit, dance, luck, UnityEngine.Random.Range(0, 5));
+        }
+
+        private void RemoveStats(bool[] statsToRemove, int amount)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                while (true)
+                {
+                    int roll = UnityEngine.Random.Range(0, 5);
+                    if (!statsToRemove[roll])
+                    {
+                        statsToRemove[roll] = true;
+                        break;
+                    }
+                }
+            }
+        }
     }
 }

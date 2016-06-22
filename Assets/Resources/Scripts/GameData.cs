@@ -23,8 +23,7 @@ namespace KI
         {
             jsonString = File.ReadAllText(Application.dataPath + "/Resources/Scripts/GameData.json");
             gameData = JsonMapper.ToObject(jsonString);
-
-
+            
             //Debug.Log(gameData["stage"][0]["fansNeeded"]);
         }
 

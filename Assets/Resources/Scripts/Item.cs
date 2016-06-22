@@ -12,7 +12,8 @@ namespace KI
             SHIRT,
             WEAPON,
             PANTS,
-            SHOES
+            SHOES,
+            POTION
         }
 
         public ItemType type;
@@ -26,17 +27,17 @@ namespace KI
         public int dance;
         public int luck;
 
-        public Item(ItemType type, int rarity, int level, int adj, int popularity, int voice, int spirit, int dance, int luck)
+        public Item(ItemType type, int rarity, int level, int popularity, int voice, int spirit, int dance, int luck, int adj)
         {
             this.type = type;
             this.rarity = rarity;
             this.level = level;
-            this.adj = adj;
             this.popularity = popularity;
             this.voice = voice;
             this.spirit = spirit;
             this.dance = dance;
             this.luck = luck;
+            this.adj = adj;
         }
     }
 }
