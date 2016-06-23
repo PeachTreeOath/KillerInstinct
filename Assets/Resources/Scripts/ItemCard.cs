@@ -47,7 +47,7 @@ namespace KI
             GetComponent<MeshRenderer>().material = ResourceManager.instance.GetMaterial(item.rarity);
             Transform parent = transform.Find("BG");
             TextMesh name = parent.Find("Name").GetComponent<TextMesh>();
-            name.text = "boots";
+            name.text = "Test Item";
             name.color = colorArray[item.rarity];
             parent.Find("PopularityValue").GetComponent<TextMesh>().text = item.popularity.ToString();
             parent.Find("VoiceValue").GetComponent<TextMesh>().text = item.voice.ToString();
@@ -55,6 +55,16 @@ namespace KI
             parent.Find("DanceValue").GetComponent<TextMesh>().text = item.dance.ToString();
             parent.Find("LuckValue").GetComponent<TextMesh>().text = item.luck.ToString();
             //TODO show diffs
+            TextMesh pDiff = parent.Find("PopularityDiff").GetComponent<TextMesh>();
+            TextMesh vDiff = parent.Find("VoiceDiff").GetComponent<TextMesh>();
+            TextMesh sDiff = parent.Find("SpiritDiff").GetComponent<TextMesh>();
+            TextMesh dDiff = parent.Find("DanceDiff").GetComponent<TextMesh>();
+            TextMesh lDiff = parent.Find("LuckDiff").GetComponent<TextMesh>();
+            pDiff.text = "+" + item.popularity.ToString();
+            vDiff.text = "+" + item.voice.ToString();
+            sDiff.text = "+" + item.spirit.ToString();
+            dDiff.text = "+" + item.dance.ToString();
+            lDiff.text = "+" + item.luck.ToString();
         }
 
     }

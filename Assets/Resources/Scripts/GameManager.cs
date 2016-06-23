@@ -17,6 +17,12 @@ namespace KI
         private Text enemyHpText;
         private bool isPlayerTurn = true;
 
+        // Item vars
+        private Vector3 itemSlot1Pos = new Vector3(1.75f, 2.6f, -3);
+        private Vector3 itemSlot2Pos = new Vector3(0, 2.6f, -3);
+        private Vector3 itemSlot3Pos = new Vector3(-1.75f, 2.6f, -3);
+        private Quaternion cardRotation = Quaternion.Euler(0, 90, 90);
+
         // Stage vars
         private int stage;
         private int fans;
@@ -128,9 +134,24 @@ namespace KI
 
         private void RevealGifts()
         {
-            Item item1 = CreateItem();
-            ItemCard card1 = ((GameObject)Instantiate(cardPrefab, Vector3.zero, Quaternion.identity)).GetComponent<ItemCard>();
+            Item item1 = CreateTestItem();
+            ItemCard card1 = ((GameObject)Instantiate(cardPrefab, itemSlot1Pos, cardRotation)).GetComponent<ItemCard>();
             card1.CreateCard(item1);
+
+            Item item2 = CreateTestItem();
+            ItemCard card2 = ((GameObject)Instantiate(cardPrefab, itemSlot2Pos, cardRotation)).GetComponent<ItemCard>();
+            card2.CreateCard(item2);
+
+            Item item3 = CreateTestItem();
+            ItemCard card3 = ((GameObject)Instantiate(cardPrefab, itemSlot3Pos, cardRotation)).GetComponent<ItemCard>();
+            card3.CreateCard(item3);
+        }
+
+        private Item CreateTestItem()
+        {
+            return new Item((Item.ItemType)UnityEngine.Random.Range(0, 5), UnityEngine.Random.Range(0, 5), UnityEngine.Random.Range(0, 5),
+                UnityEngine.Random.Range(0, 11), UnityEngine.Random.Range(0, 11), UnityEngine.Random.Range(0, 11), UnityEngine.Random.Range(0, 11),
+                UnityEngine.Random.Range(0, 11), UnityEngine.Random.Range(0, 5));
         }
 
         private Item CreateItem()
