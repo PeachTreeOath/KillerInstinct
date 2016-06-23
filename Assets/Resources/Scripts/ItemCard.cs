@@ -54,7 +54,7 @@ namespace KI
             parent.Find("SpiritValue").GetComponent<TextMesh>().text = item.spirit.ToString();
             parent.Find("DanceValue").GetComponent<TextMesh>().text = item.dance.ToString();
             parent.Find("LuckValue").GetComponent<TextMesh>().text = item.luck.ToString();
-            //TODO show diffs
+            //TODO show diffs and color them
             TextMesh pDiff = parent.Find("PopularityDiff").GetComponent<TextMesh>();
             TextMesh vDiff = parent.Find("VoiceDiff").GetComponent<TextMesh>();
             TextMesh sDiff = parent.Find("SpiritDiff").GetComponent<TextMesh>();

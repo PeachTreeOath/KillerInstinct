@@ -29,7 +29,7 @@ namespace KI
 
         void Awake()
         {
-            hpText = GameObject.Find("Canvas").transform.Find("PlayerHp").Find("PlayerHpText").GetComponent<Text>();
+            hpText = GameObject.Find("BattleCanvas").transform.Find("PlayerHp").Find("PlayerHpText").GetComponent<Text>();
         }
 
         // Use this for initialization

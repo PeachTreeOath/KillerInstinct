@@ -32,7 +32,7 @@ namespace KI
         void Awake()
         {
             cardPrefab = Resources.Load<GameObject>("Prefabs/ItemCard");
-            enemyHpText = GameObject.Find("Canvas").transform.Find("EnemyHp").Find("EnemyHpText").GetComponent<Text>();
+            enemyHpText = GameObject.Find("BattleCanvas").transform.Find("EnemyHp").Find("EnemyHpText").GetComponent<Text>();
         }
 
         // Use this for initialization
