@@ -12,6 +12,8 @@ namespace KI
         static Color orangeColor;
         static Color[] colorArray;
 
+        private Item item;
+
         void Awake()
         {
             colorArray = new Color[5];
@@ -44,10 +46,12 @@ namespace KI
 
         public void CreateCard(Item item)
         {
+            this.item = item;
+
             GetComponent<MeshRenderer>().material = ResourceManager.instance.GetMaterial(item.rarity);
             Transform parent = transform.Find("BG");
             TextMesh name = parent.Find("Name").GetComponent<TextMesh>();
-            name.text = "Test Item";
+            name.text = item.type.ToString();
             name.color = colorArray[item.rarity];
             parent.Find("PopularityValue").GetComponent<TextMesh>().text = item.popularity.ToString();
             parent.Find("VoiceValue").GetComponent<TextMesh>().text = item.voice.ToString();
@@ -67,5 +71,9 @@ namespace KI
             lDiff.text = "+" + item.luck.ToString();
         }
 
+        public Item GetItem()
+        {
+            return item;
+        }
     }
 }

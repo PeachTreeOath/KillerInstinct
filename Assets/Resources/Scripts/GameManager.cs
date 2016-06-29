@@ -7,9 +7,9 @@ namespace KI
 {
     public class GameManager : MonoBehaviour
     {
+        private const float FIGHT_SPEED = .5f;
         private Player player;
         private GameData gameData;
-        private GameObject cardPrefab;
 
         // Battle vars
         private int enemyHp;
@@ -22,6 +22,11 @@ namespace KI
         private Vector3 itemSlot2Pos = new Vector3(0, 2.6f, -3);
         private Vector3 itemSlot3Pos = new Vector3(-1.75f, 2.6f, -3);
         private Quaternion cardRotation = Quaternion.Euler(0, 90, 90);
+        private ItemCard card1;
+        private ItemCard card2;
+        private ItemCard card3;
+        private GameObject cardPrefab;
+        private StatsPanel statsPanel;
 
         // Stage vars
         private int stage;
@@ -33,6 +38,7 @@ namespace KI
         {
             cardPrefab = Resources.Load<GameObject>("Prefabs/ItemCard");
             enemyHpText = GameObject.Find("BattleCanvas").transform.Find("EnemyHp").Find("EnemyHpText").GetComponent<Text>();
+            statsPanel = GameObject.Find("StatsCanvas").GetComponent<StatsPanel>();
         }
 
         // Use this for initialization
@@ -42,13 +48,55 @@ namespace KI
             gameData = new GameData();
 
             ChangeStage(1);
-            Invoke("CalculateDamage", 1f);
+            UpdateStats();
+            Invoke("CalculateDamage", FIGHT_SPEED);
         }
 
         // Update is called once per frame
         void Update()
         {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                EquipItem(1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                EquipItem(2);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                EquipItem(3);
+            }
+        }
 
+        private void EquipItem(int slot)
+        {
+            ItemCard card = null;
+
+            switch (slot)
+            {
+                case 1:
+                    card = card1;
+                    break;
+                case 2:
+                    card = card2;
+                    break;
+                case 3:
+                    card = card3;
+                    break;
+            }
+
+            if (card != null)
+            {
+                player.EquipItem(card);
+                UpdateStats();
+                DestroyCards();
+            }
+        }
+
+        private void UpdateStats()
+        {
+            statsPanel.UpdateStats(player);
         }
 
         private void CalculateDamage()
@@ -58,7 +106,7 @@ namespace KI
                 // Do 1-5 dmg by default
                 int dmg = UnityEngine.Random.Range(1, 6) + (int)(player.statVoice * 0.33f);
                 enemyHp -= dmg;
-
+                //TODO make HP bars move
                 if (enemyHp <= 0)
                 {
                     ResetFight();
@@ -86,7 +134,7 @@ namespace KI
             }
 
             isPlayerTurn = !isPlayerTurn; //TODO Remove
-            Invoke("CalculateDamage", 1f); //TODO Remove
+            Invoke("CalculateDamage", FIGHT_SPEED); //TODO Remove
         }
 
         private void KillMonster()
@@ -132,18 +180,36 @@ namespace KI
             return tempStage - 1 + CalculateEnemyDamageForStage(tempStage - 1);
         }
 
+        private void DestroyCards()
+        {
+            if (card1 != null)
+            {
+                Destroy(card1.gameObject);
+            }
+            if (card2 != null)
+            {
+                Destroy(card2.gameObject);
+            }
+            if (card3 != null)
+            {
+                Destroy(card3.gameObject);
+            }
+        }
+
         private void RevealGifts()
         {
+            DestroyCards();
+
             Item item1 = CreateTestItem();
-            ItemCard card1 = ((GameObject)Instantiate(cardPrefab, itemSlot1Pos, cardRotation)).GetComponent<ItemCard>();
+            card1 = ((GameObject)Instantiate(cardPrefab, itemSlot1Pos, cardRotation)).GetComponent<ItemCard>();
             card1.CreateCard(item1);
 
             Item item2 = CreateTestItem();
-            ItemCard card2 = ((GameObject)Instantiate(cardPrefab, itemSlot2Pos, cardRotation)).GetComponent<ItemCard>();
+            card2 = ((GameObject)Instantiate(cardPrefab, itemSlot2Pos, cardRotation)).GetComponent<ItemCard>();
             card2.CreateCard(item2);
 
             Item item3 = CreateTestItem();
-            ItemCard card3 = ((GameObject)Instantiate(cardPrefab, itemSlot3Pos, cardRotation)).GetComponent<ItemCard>();
+            card3 = ((GameObject)Instantiate(cardPrefab, itemSlot3Pos, cardRotation)).GetComponent<ItemCard>();
             card3.CreateCard(item3);
         }
 

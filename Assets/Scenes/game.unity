@@ -878,7 +878,7 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 991729243}
---- !u!43 &1135313732
+--- !u!43 &1107994561
 Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1091,13 +1091,14 @@ GameObject:
   - 223: {fileID: 1188177470}
   - 114: {fileID: 1188177469}
   - 114: {fileID: 1188177468}
+  - 114: {fileID: 1188177472}
   m_Layer: 5
   m_Name: StatsCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1188177468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1173,6 +1174,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 5.05}
   m_SizeDelta: {x: 343, y: 193}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1188177472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1188177467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 910f53abb5c2e454f8f1d3f5fae47138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1213122535
 GameObject:
   m_ObjectHideFlags: 0
@@ -1255,7 +1267,7 @@ Prefab:
     - target: {fileID: 3380982, guid: 4d293c8e162f3874b982baadd71153d2, type: 2}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1135313732}
+      objectReference: {fileID: 1107994561}
     - target: {fileID: 146900, guid: 4d293c8e162f3874b982baadd71153d2, type: 2}
       propertyPath: m_IsActive
       value: 1
@@ -1340,7 +1352,7 @@ GameObject:
   - 222: {fileID: 1223286501}
   - 114: {fileID: 1223286500}
   m_Layer: 5
-  m_Name: PlayerHp
+  m_Name: StatsPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1367,7 +1379,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -49.3}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 150, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1223286500

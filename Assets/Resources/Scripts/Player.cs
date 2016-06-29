@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System;
 
 namespace KI
 {
@@ -14,11 +15,12 @@ namespace KI
         public int statDance = 0;
         public int statLuck = 0;
 
-        public Item hatItem = new Item(Item.ItemType.HAT, 0, 0, 0, 0, 0, 0, 0, 0);
-        public Item shirtItem = new Item(Item.ItemType.SHIRT, 0, 0, 0, 0, 0, 0, 0, 0);
-        public Item weaponItem = new Item(Item.ItemType.WEAPON, 0, 0, 0, 0, 0, 0, 0, 0);
-        public Item pantsItem = new Item(Item.ItemType.PANTS, 0, 0, 0, 0, 0, 0, 0, 0);
-        public Item shoesItem = new Item(Item.ItemType.SHIRT, 0, 0, 0, 0, 0, 0, 0, 0);
+        public Item hatItem;
+        public Item shirtItem;
+        public Item weaponItem;
+        public Item pantsItem;
+        public Item shoesItem;
+        private Item[] itemArray;
 
         public Item potion1;
         public Item potion2;
@@ -35,7 +37,17 @@ namespace KI
         // Use this for initialization
         void Start()
         {
-
+            hatItem = new Item(Item.ItemType.HAT, 0, 0, 0, 0, 0, 0, 0, 0);
+            shirtItem = new Item(Item.ItemType.SHIRT, 0, 0, 0, 0, 0, 0, 0, 0);
+            weaponItem = new Item(Item.ItemType.WEAPON, 0, 0, 0, 0, 0, 0, 0, 0);
+            pantsItem = new Item(Item.ItemType.PANTS, 0, 0, 0, 0, 0, 0, 0, 0);
+            shoesItem = new Item(Item.ItemType.SHIRT, 0, 0, 0, 0, 0, 0, 0, 0);
+            itemArray = new Item[5];
+            itemArray[0] = hatItem;
+            itemArray[1] = shirtItem;
+            itemArray[2] = weaponItem;
+            itemArray[3] = pantsItem;
+            itemArray[4] = shoesItem;
         }
 
         // Update is called once per frame
@@ -64,6 +76,58 @@ namespace KI
         private void SetHpText()
         {
             hpText.text = currHp + " / " + totalHp;
+        }
+
+        public void EquipItem(ItemCard card)
+        {
+            Item newItem = card.GetItem();
+
+            switch (newItem.type)
+            {
+                case Item.ItemType.HAT:
+                    hatItem = newItem;
+                    itemArray[0] = hatItem;
+                    break;
+                case Item.ItemType.SHIRT:
+                    shirtItem = newItem;
+                    itemArray[1] = shirtItem;
+                    break;
+                case Item.ItemType.WEAPON:
+                    weaponItem = newItem;
+                    itemArray[2] = weaponItem;
+                    break;
+                case Item.ItemType.PANTS:
+                    pantsItem = newItem;
+                    itemArray[3] = pantsItem;
+                    break;
+                case Item.ItemType.SHOES:
+                    itemArray[4] = shoesItem;
+                    shoesItem = newItem;
+                    break;
+                case Item.ItemType.POTION:
+                    break;
+                default:
+                    break;
+            }
+            CalculateStats();
+        }
+
+        private void CalculateStats()
+        {
+            statPop = 0;
+            statVoice = 0;
+            statSpirit = 0;
+            statDance = 0;
+            statLuck = 0;
+
+            foreach (Item item in itemArray)
+            {
+                statPop += item.popularity;
+                statVoice += item.voice;
+                statSpirit += item.spirit;
+                statDance += item.dance;
+                statLuck += item.luck;
+            }
         }
     }
 }
