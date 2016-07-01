@@ -79,7 +79,6 @@ GameObject:
   - 33: {fileID: 3348242}
   - 64: {fileID: 6467010}
   - 23: {fileID: 2335138}
-  - 114: {fileID: 11462764}
   - 114: {fileID: 11422298}
   m_Layer: 0
   m_Name: ItemCard
@@ -598,7 +597,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 130808}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
@@ -1492,26 +1491,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ae3951d6ac2f0a41a25c97ba62cc0af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11462764
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 119930}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a0e9503d3afc7d47a664f6e52f3a7bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  rarity: 0
-  level: 0
-  adjective: 0
-  popularity: 0
-  voice: 0
-  spirit: 0
-  dance: 0
-  luck: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

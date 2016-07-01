@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 namespace KI
 {
@@ -46,14 +47,18 @@ namespace KI
 
         }
 
+        // Null item arg means this card is for showing the equipped item
         public void CreateCard(Item item, Item equippedItem)
         {
             this.item = item;
-
+            if (item == null)
+            {
+                item = equippedItem;
+            }
             GetComponent<MeshRenderer>().material = ResourceManager.instance.GetMaterial(item.rarity);
             Transform parent = transform.Find("BG");
             TextMesh name = parent.Find("Name").GetComponent<TextMesh>();
-            name.text = GameManager.instance.GameData.GetItemAdjective(item.rarity) + " " + GameManager.instance.GameData.GetItemName(item.type, item.level);
+            name.text = GameManager.instance.GameData.GetItemAdjective(item.rarity, item.adjective) + " " + GameManager.instance.GameData.GetItemName(item.type, item.level);
             name.color = colorArray[item.rarity];
             parent.Find("PopularityValue").GetComponent<TextMesh>().text = item.popularity.ToString();
             parent.Find("VoiceValue").GetComponent<TextMesh>().text = item.voice.ToString();
@@ -61,16 +66,23 @@ namespace KI
             parent.Find("DanceValue").GetComponent<TextMesh>().text = item.dance.ToString();
             parent.Find("LuckValue").GetComponent<TextMesh>().text = item.luck.ToString();
 
-            TextMesh pDiff = parent.Find("PopularityDiff").GetComponent<TextMesh>();
-            TextMesh vDiff = parent.Find("VoiceDiff").GetComponent<TextMesh>();
-            TextMesh sDiff = parent.Find("SpiritDiff").GetComponent<TextMesh>();
-            TextMesh dDiff = parent.Find("DanceDiff").GetComponent<TextMesh>();
-            TextMesh lDiff = parent.Find("LuckDiff").GetComponent<TextMesh>();
-            CalculateDiff(pDiff, item.popularity, equippedItem.popularity);
-            CalculateDiff(vDiff, item.voice, equippedItem.voice);
-            CalculateDiff(sDiff, item.spirit, equippedItem.spirit);
-            CalculateDiff(dDiff, item.dance, equippedItem.dance);
-            CalculateDiff(lDiff, item.luck, equippedItem.luck);
+            if (this.item != null)
+            {
+                TextMesh pDiff = parent.Find("PopularityDiff").GetComponent<TextMesh>();
+                TextMesh vDiff = parent.Find("VoiceDiff").GetComponent<TextMesh>();
+                TextMesh sDiff = parent.Find("SpiritDiff").GetComponent<TextMesh>();
+                TextMesh dDiff = parent.Find("DanceDiff").GetComponent<TextMesh>();
+                TextMesh lDiff = parent.Find("LuckDiff").GetComponent<TextMesh>();
+                CalculateDiff(pDiff, item.popularity, equippedItem.popularity);
+                CalculateDiff(vDiff, item.voice, equippedItem.voice);
+                CalculateDiff(sDiff, item.spirit, equippedItem.spirit);
+                CalculateDiff(dDiff, item.dance, equippedItem.dance);
+                CalculateDiff(lDiff, item.luck, equippedItem.luck);
+            }
+            else
+            {
+                parent.Find("Equipped").GetComponent<MeshRenderer>().enabled = true;
+            }
         }
 
         private void CalculateDiff(TextMesh mesh, int newVal, int oldVal)

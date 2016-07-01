@@ -31,10 +31,16 @@ namespace KI
         private Vector3 itemSlot1Pos = new Vector3(1.75f, 2.6f, -3);
         private Vector3 itemSlot2Pos = new Vector3(0, 2.6f, -3);
         private Vector3 itemSlot3Pos = new Vector3(-1.75f, 2.6f, -3);
+        private Vector3 equippedItemSlot1Pos = new Vector3(1.75f, 4.2f, -3);
+        private Vector3 equippedItemSlot2Pos = new Vector3(0, 4.2f, -3);
+        private Vector3 equippedItemSlot3Pos = new Vector3(-1.75f, 4.2f, -3);
         private Quaternion cardRotation = Quaternion.Euler(0, 90, 90);
         private ItemCard card1;
         private ItemCard card2;
         private ItemCard card3;
+        private ItemCard equippedCard1;
+        private ItemCard equippedCard2;
+        private ItemCard equippedCard3;
         private GameObject cardPrefab;
         private StatsPanel statsPanel;
 
@@ -194,18 +200,12 @@ namespace KI
 
         private void DestroyCards()
         {
-            if (card1 != null)
-            {
-                Destroy(card1.gameObject);
-            }
-            if (card2 != null)
-            {
-                Destroy(card2.gameObject);
-            }
-            if (card3 != null)
-            {
-                Destroy(card3.gameObject);
-            }
+            if (card1 != null) Destroy(card1.gameObject);
+            if (card2 != null) Destroy(card2.gameObject);
+            if (card3 != null) Destroy(card3.gameObject);
+            if (equippedCard1 != null) Destroy(equippedCard1.gameObject);
+            if (equippedCard2 != null) Destroy(equippedCard2.gameObject);
+            if (equippedCard3 != null) Destroy(equippedCard3.gameObject);
         }
 
         private void RevealGifts()
@@ -213,16 +213,34 @@ namespace KI
             DestroyCards();
 
             Item item1 = CreateTestItem();
+            Item equippedItem1 = player.GetItem(item1.type);
             card1 = ((GameObject)Instantiate(cardPrefab, itemSlot1Pos, cardRotation)).GetComponent<ItemCard>();
-            card1.CreateCard(item1, player.GetItem(item1.type));
+            card1.CreateCard(item1, equippedItem1);
+            if (equippedItem1.adjective != -1)
+            {
+                equippedCard1 = ((GameObject)Instantiate(cardPrefab, equippedItemSlot1Pos, cardRotation)).GetComponent<ItemCard>();
+                equippedCard1.CreateCard(null, equippedItem1);
+            }
 
             Item item2 = CreateTestItem();
+            Item equippedItem2 = player.GetItem(item2.type);
             card2 = ((GameObject)Instantiate(cardPrefab, itemSlot2Pos, cardRotation)).GetComponent<ItemCard>();
             card2.CreateCard(item2, player.GetItem(item2.type));
+            if (equippedItem2.adjective != -1)
+            {
+                equippedCard2 = ((GameObject)Instantiate(cardPrefab, equippedItemSlot2Pos, cardRotation)).GetComponent<ItemCard>();
+                equippedCard2.CreateCard(null, equippedItem2);
+            }
 
             Item item3 = CreateTestItem();
+            Item equippedItem3 = player.GetItem(item3.type);
             card3 = ((GameObject)Instantiate(cardPrefab, itemSlot3Pos, cardRotation)).GetComponent<ItemCard>();
             card3.CreateCard(item3, player.GetItem(item3.type));
+            if (equippedItem3.adjective != -1)
+            {
+                equippedCard3 = ((GameObject)Instantiate(cardPrefab, equippedItemSlot3Pos, cardRotation)).GetComponent<ItemCard>();
+                equippedCard3.CreateCard(null, equippedItem3);
+            }
         }
 
         private Item CreateTestItem()

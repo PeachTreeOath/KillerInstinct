@@ -37,11 +37,12 @@ namespace KI
         // Use this for initialization
         void Start()
         {
-            hatItem = new Item(Item.ItemType.HAT, 0, 0, 0, 0, 0, 0, 0, 0);
-            shirtItem = new Item(Item.ItemType.SHIRT, 0, 0, 0, 0, 0, 0, 0, 0);
-            weaponItem = new Item(Item.ItemType.WEAPON, 0, 0, 0, 0, 0, 0, 0, 0);
-            pantsItem = new Item(Item.ItemType.PANTS, 0, 0, 0, 0, 0, 0, 0, 0);
-            shoesItem = new Item(Item.ItemType.SHIRT, 0, 0, 0, 0, 0, 0, 0, 0);
+            // Adjective value of -1 means there is nothing equipped
+            hatItem = new Item(Item.ItemType.HAT, 0, 0, 0, 0, 0, 0, 0, -1);
+            shirtItem = new Item(Item.ItemType.SHIRT, 0, 0, 0, 0, 0, 0, 0, -1);
+            weaponItem = new Item(Item.ItemType.WEAPON, 0, 0, 0, 0, 0, 0, 0, -1);
+            pantsItem = new Item(Item.ItemType.PANTS, 0, 0, 0, 0, 0, 0, 0, -1);
+            shoesItem = new Item(Item.ItemType.SHIRT, 0, 0, 0, 0, 0, 0, 0, -1);
             itemArray = new Item[5];
             itemArray[0] = hatItem;
             itemArray[1] = shirtItem;
@@ -70,7 +71,7 @@ namespace KI
 
         public bool hasEmptyPotionSlot()
         {
-            return potion1 || potion2 || potion3;
+            return true;//TODO potion1 || potion2 || potion3;
         }
 
         private void SetHpText()

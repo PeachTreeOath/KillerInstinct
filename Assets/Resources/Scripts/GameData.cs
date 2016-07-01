@@ -23,7 +23,7 @@ namespace KI
         {
             jsonString = File.ReadAllText(Application.dataPath + "/Resources/Scripts/GameData.json");
             gameData = JsonMapper.ToObject(jsonString);
-            
+
             //Debug.Log(gameData["stage"][0]["fansNeeded"]);
         }
 
@@ -54,13 +54,12 @@ namespace KI
 
         public string GetItemName(Item.ItemType type, int level)
         {
-            return gameData[type.ToString().ToLower()][level]["name"].ToString(); 
+            return gameData[type.ToString().ToLower()][level]["name"].ToString();
         }
 
-        public string GetItemAdjective(int rarity)
+        public string GetItemAdjective(int rarity, int adj)
         {
-            int rnd = UnityEngine.Random.Range(1, 6);
-            return gameData["adjectives"][rarity]["text" + rnd].ToString();
+            return gameData["adjectives"][rarity]["text" + (adj + 1)].ToString();
         }
     }
 }
