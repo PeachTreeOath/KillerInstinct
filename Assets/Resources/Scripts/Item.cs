@@ -17,9 +17,9 @@ namespace KI
         }
 
         public ItemType type;
-        public int rarity;  // Common > uncommon > rare > etc...
-        public int level;   // Tie > T-Shirt > Vest > etc...
-        public int adj; //TODO
+        public int rarity;      // Common > uncommon > rare > etc...
+        public int level;       // Tie > T-Shirt > Vest > etc...
+        public int adjective;   // Trendy > Great > Cool > etc...
 
         public int popularity;
         public int voice;
@@ -27,7 +27,7 @@ namespace KI
         public int dance;
         public int luck;
 
-        public Item(ItemType type, int rarity, int level, int popularity, int voice, int spirit, int dance, int luck, int adj)
+        public Item(ItemType type, int rarity, int level, int popularity, int voice, int spirit, int dance, int luck, int adjective)
         {
             this.type = type;
             this.rarity = rarity;
@@ -37,7 +37,7 @@ namespace KI
             this.spirit = spirit;
             this.dance = dance;
             this.luck = luck;
-            this.adj = adj;
+            this.adjective = adjective;
         }
     }
 }

@@ -51,5 +51,16 @@ namespace KI
 
             return data;
         }
+
+        public string GetItemName(Item.ItemType type, int level)
+        {
+            return gameData[type.ToString().ToLower()][level]["name"].ToString(); 
+        }
+
+        public string GetItemAdjective(int rarity)
+        {
+            int rnd = UnityEngine.Random.Range(1, 6);
+            return gameData["adjectives"][rarity]["text" + rnd].ToString();
+        }
     }
 }

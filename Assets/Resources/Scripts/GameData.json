@@ -85,5 +85,38 @@
 			"crowdNum" : 7,
 			"enemyHp" : 50
 		}
+	],
+		"adjectives" : [{
+			"text1" : "Poor",
+			"text2" : "Ugly",
+			"text3" : "Old",
+			"text4" : "Smelly",
+			"text5" : "Used"
+		}, {
+			"text1" : "",
+			"text2" : "",
+			"text3" : "",
+			"text4" : "",
+			"text5" : ""
+		}, {
+			"text1" : "Good",
+			"text2" : "OK",
+			"text3" : "Nice",
+			"text4" : "Rare",
+			"text5" : "Neat"
+		}, {
+			"text1" : "Trendy",
+			"text2" : "Great",
+			"text3" : "Cool",
+			"text4" : "Cute",
+			"text5" : "Epic"
+		}, {
+			"text1" : "Super",
+			"text2" : "Sugoi",
+			"text3" : "Godlike",
+			"text4" : "Sparkly",
+			"text5" : "Shiny"
+		}
 	]
+
 }

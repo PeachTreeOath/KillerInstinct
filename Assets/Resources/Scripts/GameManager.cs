@@ -7,9 +7,19 @@ namespace KI
 {
     public class GameManager : MonoBehaviour
     {
+        public static GameManager instance;
+
         private const float FIGHT_SPEED = .5f;
         private Player player;
+        public Player Player
+        {
+            get { return player; }
+        }
         private GameData gameData;
+        public GameData GameData
+        {
+            get { return gameData; }
+        }
 
         // Battle vars
         private int enemyHp;
@@ -36,6 +46,8 @@ namespace KI
 
         void Awake()
         {
+            instance = this;
+
             cardPrefab = Resources.Load<GameObject>("Prefabs/ItemCard");
             enemyHpText = GameObject.Find("BattleCanvas").transform.Find("EnemyHp").Find("EnemyHpText").GetComponent<Text>();
             statsPanel = GameObject.Find("StatsCanvas").GetComponent<StatsPanel>();
@@ -202,15 +214,15 @@ namespace KI
 
             Item item1 = CreateTestItem();
             card1 = ((GameObject)Instantiate(cardPrefab, itemSlot1Pos, cardRotation)).GetComponent<ItemCard>();
-            card1.CreateCard(item1);
+            card1.CreateCard(item1, player.GetItem(item1.type));
 
             Item item2 = CreateTestItem();
             card2 = ((GameObject)Instantiate(cardPrefab, itemSlot2Pos, cardRotation)).GetComponent<ItemCard>();
-            card2.CreateCard(item2);
+            card2.CreateCard(item2, player.GetItem(item2.type));
 
             Item item3 = CreateTestItem();
             card3 = ((GameObject)Instantiate(cardPrefab, itemSlot3Pos, cardRotation)).GetComponent<ItemCard>();
-            card3.CreateCard(item3);
+            card3.CreateCard(item3, player.GetItem(item3.type));
         }
 
         private Item CreateTestItem()

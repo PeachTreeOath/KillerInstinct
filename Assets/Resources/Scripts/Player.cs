@@ -15,17 +15,17 @@ namespace KI
         public int statDance = 0;
         public int statLuck = 0;
 
-        public Item hatItem;
-        public Item shirtItem;
-        public Item weaponItem;
-        public Item pantsItem;
-        public Item shoesItem;
+        private Item hatItem;
+        private Item shirtItem;
+        private Item weaponItem;
+        private Item pantsItem;
+        private Item shoesItem;
         private Item[] itemArray;
 
-        public Item potion1;
-        public Item potion2;
-        public Item potion3;
-        public Item activePotions;
+        private Item potion1;
+        private Item potion2;
+        private Item potion3;
+        private Item activePotions;
 
         private Text hpText;
 
@@ -76,6 +76,11 @@ namespace KI
         private void SetHpText()
         {
             hpText.text = currHp + " / " + totalHp;
+        }
+
+        public Item GetItem(Item.ItemType type)
+        {
+            return itemArray[(int)type];
         }
 
         public void EquipItem(ItemCard card)
