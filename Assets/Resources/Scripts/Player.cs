@@ -28,10 +28,13 @@ namespace KI
         private Item activePotions;
 
         private Text hpText;
+        private Image hpBar;
 
         void Awake()
         {
-            hpText = GameObject.Find("BattleCanvas").transform.Find("PlayerHp").Find("PlayerHpText").GetComponent<Text>();
+            Transform parent = GameObject.Find("BattleCanvas").transform.Find("PlayerHp");
+            hpText = parent.Find("PlayerHpText").GetComponent<Text>();
+            hpBar = parent.Find("PlayerHpBG").GetComponent<Image>();
         }
 
         // Use this for initialization
@@ -71,12 +74,13 @@ namespace KI
 
         public bool hasEmptyPotionSlot()
         {
-            return true;//TODO potion1 || potion2 || potion3;
+            return potion1 != null || potion2 != null || potion3 != null;
         }
 
         private void SetHpText()
         {
             hpText.text = currHp + " / " + totalHp;
+            hpBar.fillAmount = currHp / (float)totalHp;
         }
 
         public Item GetItem(Item.ItemType type)

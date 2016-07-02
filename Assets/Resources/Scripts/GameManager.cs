@@ -25,6 +25,7 @@ namespace KI
         private int enemyHp;
         private int enemyTotalHp;
         private Text enemyHpText;
+        private Image enemyHpBar;
         private bool isPlayerTurn = true;
 
         // Item vars
@@ -55,7 +56,9 @@ namespace KI
             instance = this;
 
             cardPrefab = Resources.Load<GameObject>("Prefabs/ItemCard");
-            enemyHpText = GameObject.Find("BattleCanvas").transform.Find("EnemyHp").Find("EnemyHpText").GetComponent<Text>();
+            Transform enemyParent = GameObject.Find("BattleCanvas").transform.Find("EnemyHp");
+            enemyHpText = enemyParent.Find("EnemyHpText").GetComponent<Text>();
+            enemyHpBar = enemyParent.Find("EnemyHpBG").GetComponent<Image>();
             statsPanel = GameObject.Find("StatsCanvas").GetComponent<StatsPanel>();
         }
 
@@ -124,7 +127,7 @@ namespace KI
                 // Do 1-5 dmg by default
                 int dmg = UnityEngine.Random.Range(1, 6) + (int)(player.statVoice * 0.33f);
                 enemyHp -= dmg;
-                //TODO make HP bars move
+                
                 if (enemyHp <= 0)
                 {
                     ResetFight();
@@ -151,7 +154,7 @@ namespace KI
                 }
             }
 
-            isPlayerTurn = !isPlayerTurn; //TODO Remove
+            isPlayerTurn = !isPlayerTurn;
             Invoke("CalculateDamage", FIGHT_SPEED); //TODO Remove
         }
 
@@ -172,6 +175,7 @@ namespace KI
         private void SetEnemyHpText()
         {
             enemyHpText.text = enemyHp + " / " + enemyTotalHp;
+            enemyHpBar.fillAmount = enemyHp / (float)enemyTotalHp;
         }
 
         private void ChangeStage(int newStage)
