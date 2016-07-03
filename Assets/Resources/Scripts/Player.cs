@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 
 namespace KI
@@ -22,10 +23,9 @@ namespace KI
         private Item shoesItem;
         private Item[] itemArray;
 
-        private Item potion1;
-        private Item potion2;
-        private Item potion3;
-        private Item activePotions;
+        public Item[] potions;
+        private List<Item> activePotions;
+        private float duration; // Used only for potion timers
 
         private Text hpText;
         private Image hpBar;
@@ -52,6 +52,9 @@ namespace KI
             itemArray[2] = weaponItem;
             itemArray[3] = pantsItem;
             itemArray[4] = shoesItem;
+
+            potions = new Item[3];
+            activePotions = new List<Item>();
         }
 
         // Update is called once per frame
@@ -74,7 +77,11 @@ namespace KI
 
         public bool hasEmptyPotionSlot()
         {
-            return potion1 != null || potion2 != null || potion3 != null;
+            foreach (Item potion in potions)
+            {
+                if (potion == null) return true;
+            }
+            return false;
         }
 
         private void SetHpText()

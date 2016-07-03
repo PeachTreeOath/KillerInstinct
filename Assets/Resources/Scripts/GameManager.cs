@@ -90,17 +90,29 @@ namespace KI
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown(KeyCode.Alpha1) && card1 != null)
             {
                 EquipItem(1);
             }
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            else if (Input.GetKeyDown(KeyCode.Alpha2) && card2 != null)
             {
                 EquipItem(2);
             }
-            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            else if (Input.GetKeyDown(KeyCode.Alpha3) && card3 != null)
             {
                 EquipItem(3);
+            }
+            else if (Input.GetKeyDown(KeyCode.Q) && player.potions[0] != null)
+            {
+                EquipItem(2);
+            }
+            else if (Input.GetKeyDown(KeyCode.W) && player.potions[1] != null)
+            {
+                EquipItem(3);
+            }
+            else if (Input.GetKeyDown(KeyCode.E) && player.potions[2] != null)
+            {
+                EquipItem(2);
             }
         }
 
@@ -228,22 +240,23 @@ namespace KI
             if (itemModel2 != null) Destroy(itemModel2.gameObject);
             if (itemModel3 != null) Destroy(itemModel3.gameObject);
         }
-        
+
         private void RevealGifts()
         {
             DestroyCards();
 
-            CreateGift(itemSlot1Pos, equippedItemSlot1Pos, itemModelSlot1Pos, card1, equippedCard1, itemModel1);
-            CreateGift(itemSlot2Pos, equippedItemSlot2Pos, itemModelSlot2Pos, card2, equippedCard2, itemModel2);
-            CreateGift(itemSlot3Pos, equippedItemSlot3Pos, itemModelSlot3Pos, card3, equippedCard3, itemModel3);
+            CreateGift(itemSlot1Pos, equippedItemSlot1Pos, itemModelSlot1Pos, out card1, out equippedCard1, out itemModel1);
+            CreateGift(itemSlot2Pos, equippedItemSlot2Pos, itemModelSlot2Pos, out card2, out equippedCard2, out itemModel2);
+            CreateGift(itemSlot3Pos, equippedItemSlot3Pos, itemModelSlot3Pos, out card3, out equippedCard3, out itemModel3);
         }
 
-        private void CreateGift(Vector3 itemSlotPos, Vector3 equippedItemSlotPos, Vector3 itemModelSlotPos, ItemCard card, ItemCard equippedCard, ItemModel itemModel)
+        private void CreateGift(Vector3 itemSlotPos, Vector3 equippedItemSlotPos, Vector3 itemModelSlotPos, out ItemCard card, out ItemCard equippedCard, out ItemModel itemModel)
         {
             Item item = CreateTestItem();
             Item equippedItem = player.GetItem(item.type);
             card = ((GameObject)Instantiate(cardPrefab, itemSlotPos, cardRotation)).GetComponent<ItemCard>();
             card.CreateCard(item, equippedItem);
+            equippedCard = null;
             if (equippedItem.adjective != -1)
             {
                 equippedCard = ((GameObject)Instantiate(cardPrefab, equippedItemSlotPos, cardRotation)).GetComponent<ItemCard>();
