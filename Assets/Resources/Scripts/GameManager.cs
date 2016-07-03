@@ -276,9 +276,17 @@ namespace KI
         private Item CreateItem()
         {
             int dieRoll = UnityEngine.Random.Range(0, 100) + player.statLuck / 2;
-            //  int itemLimit = player.hasEmptyPotionSlot() ? 6 : 5; //TODO finish potions
-            int itemLimit = 5;
+            int itemLimit = player.hasEmptyPotionSlot() ? 6 : 5;
             Item.ItemType type = (Item.ItemType)UnityEngine.Random.Range(0, itemLimit);
+
+            // Handle potions separately
+            if (type == Item.ItemType.POTION)
+            {
+                int stat = UnityEngine.Random.Range(0, 5);
+                int[] statIncreases = new int[5];
+                statIncreases[stat] = 25;
+                return new Item(type, 1, 1, statIncreases[0], statIncreases[1], statIncreases[2], statIncreases[3], statIncreases[4], stat);
+            }
 
             int pop = UnityEngine.Random.Range(1, stage * 2);
             int voice = UnityEngine.Random.Range(1, stage * 2);
@@ -308,7 +316,7 @@ namespace KI
             // Rare
             else if (dieRoll > 75)
             {
-                rarity = 4;
+                rarity = 3;
             }
             // Uncommon
             else if (dieRoll > 50)

@@ -122,6 +122,10 @@ namespace KI
                     shoesItem = newItem;
                     break;
                 case Item.ItemType.POTION:
+                    for (int i = 0; i < potions.Length; i++)
+                    {
+                        if (potions[i] == null) potions[i] = newItem;
+                    }
                     break;
                 default:
                     break;
