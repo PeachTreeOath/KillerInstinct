@@ -240,7 +240,7 @@ namespace KI
 
         private Item CreateTestItem()
         {
-            int itemLimit = player.hasEmptyPotionSlot() ? 6 : 5;
+            int itemLimit = player.HasEmptyPotionSlot() ? 6 : 5;
             Item.ItemType type = (Item.ItemType)UnityEngine.Random.Range(0, itemLimit);
 
             // Handle potions separately
@@ -260,7 +260,7 @@ namespace KI
         private Item CreateItem()
         {
             int dieRoll = UnityEngine.Random.Range(0, 100) + player.statLuck / 2;
-            int itemLimit = player.hasEmptyPotionSlot() ? 6 : 5;
+            int itemLimit = player.HasEmptyPotionSlot() ? 6 : 5;
             Item.ItemType type = (Item.ItemType)UnityEngine.Random.Range(0, itemLimit);
 
             // Handle potions separately

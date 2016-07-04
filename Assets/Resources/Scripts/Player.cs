@@ -56,7 +56,7 @@ namespace KI
 
         }
 
-        public bool hasEmptyPotionSlot()
+        public bool HasEmptyPotionSlot()
         {
             foreach (Item potion in potions)
             {
@@ -64,6 +64,12 @@ namespace KI
             }
             return false;
         }
+
+        public void DrinkPotion(int slot)
+        {
+            Item potion = potions[slot];
+        }
+
 
         public Item GetItem(Item.ItemType type)
         {
