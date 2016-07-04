@@ -72,6 +72,7 @@ namespace KI
             potion.duration = GetSpiritCalculation(); ;
             activePotions.Add(potion);
             potions[slot] = null;
+            CalculateStats();
             //TODO: Remove potion graphic
         }
 
