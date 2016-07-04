@@ -8,8 +8,6 @@ namespace KI
 {
     public class Player : MonoBehaviour
     {
-        public int totalHp = 20;
-        public int currHp = 20;
         public int statPop = 0;
         public int statVoice = 0;
         public int statSpirit = 0;
@@ -63,18 +61,6 @@ namespace KI
 
         }
 
-        public void TakeDamage(int dmg)
-        {
-            currHp -= dmg;
-            SetHpText();
-        }
-
-        public void ResetLife()
-        {
-            currHp = totalHp;
-            SetHpText();
-        }
-
         public bool hasEmptyPotionSlot()
         {
             foreach (Item potion in potions)
@@ -82,12 +68,6 @@ namespace KI
                 if (potion == null) return true;
             }
             return false;
-        }
-
-        private void SetHpText()
-        {
-            hpText.text = currHp + " / " + totalHp;
-            hpBar.fillAmount = currHp / (float)totalHp;
         }
 
         public Item GetItem(Item.ItemType type)

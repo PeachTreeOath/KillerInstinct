@@ -21,7 +21,7 @@ namespace KI
         private const string luckPrefix = "Luck: ";
         private const string popSuffix = " fan gain)";
         private const string voiceSuffix = " damage)";
-        private const string spiritSuffix = " hp)";
+        private const string spiritSuffix = " potion potency)";
         private const string danceSuffix = "s special cooldown)";
         private const string luckSuffix = "% item rarity)";
 
@@ -46,7 +46,7 @@ namespace KI
         {
             popText.text = popPrefix + player.statPop + " (+" + player.statPop / 4 + popSuffix;
             voiceText.text = voicePrefix + player.statVoice + " (+" + Math.Round(player.statVoice / 3f, 1) + voiceSuffix;
-            spiritText.text = spiritPrefix + player.statSpirit + " (+" + player.statSpirit * 2 + spiritSuffix;
+            spiritText.text = spiritPrefix + player.statSpirit + " (+" + player.statSpirit / 2 + spiritSuffix;
             danceText.text = dancePrefix + player.statDance + " (+" + player.statDance + danceSuffix;
             luckText.text = luckPrefix + player.statLuck + " (+" + player.statLuck / 2 + luckSuffix;
         }

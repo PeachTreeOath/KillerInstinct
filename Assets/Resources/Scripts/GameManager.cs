@@ -26,7 +26,6 @@ namespace KI
         private int enemyTotalHp;
         private Text enemyHpText;
         private Image enemyHpBar;
-        private bool isPlayerTurn = true;
 
         // Item vars
         private Vector3 itemSlot1Pos = new Vector3(1.75f, 2.6f, -3);
@@ -148,40 +147,21 @@ namespace KI
 
         private void CalculateDamage()
         {
-            if (isPlayerTurn)
+
+            // Do 1-5 dmg by default
+            int dmg = UnityEngine.Random.Range(1, 6) + (int)(player.statVoice * 0.33f);
+            enemyHp -= dmg;
+
+            if (enemyHp <= 0)
             {
-                // Do 1-5 dmg by default
-                int dmg = UnityEngine.Random.Range(1, 6) + (int)(player.statVoice * 0.33f);
-                enemyHp -= dmg;
-
-                if (enemyHp <= 0)
-                {
-                    ResetFight();
-                    KillMonster();
-                }
-
-                SetEnemyHpText();
-            }
-            else
-            {
-                //Enemy damage range
-                //1: 1-2 
-                //2: 2-4
-                //3: 4-7
-                //4: 7-11
-                //5: 11-16
-
-                int dmg = UnityEngine.Random.Range(0, stage + 1) + CalculateEnemyDamageForStage(stage);
-                player.TakeDamage(dmg);
-
-                if (player.currHp <= 0)
-                {
-                    ResetFight();
-                }
+                ResetFight();
+                KillMonster();
             }
 
-            isPlayerTurn = !isPlayerTurn;
-            Invoke("CalculateDamage", FIGHT_SPEED); //TODO Remove
+            SetEnemyHpText();
+
+
+            Invoke("CalculateDamage", FIGHT_SPEED);
         }
 
         private void KillMonster()
@@ -193,7 +173,6 @@ namespace KI
 
         private void ResetFight()
         {
-            player.ResetLife();
             enemyHp = enemyTotalHp;
             SetEnemyHpText();
         }
@@ -216,16 +195,6 @@ namespace KI
             enemyTotalHp = stageData.enemyHp;
 
             ResetFight();
-        }
-
-        private int CalculateEnemyDamageForStage(int tempStage)
-        {
-            if (tempStage == 0)
-            {
-                return 1;
-            }
-
-            return tempStage - 1 + CalculateEnemyDamageForStage(tempStage - 1);
         }
 
         private void DestroyCards()
