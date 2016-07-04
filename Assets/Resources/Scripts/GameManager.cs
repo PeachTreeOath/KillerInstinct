@@ -75,11 +75,11 @@ namespace KI
             gameData = new GameData();
 
             equippedItemSlot1Pos = new Vector3(itemSlot1Pos.x, 4.2f, itemSlot1Pos.z);
-            equippedItemSlot2Pos = new Vector3(itemSlot1Pos.x, 4.2f, itemSlot1Pos.z);
-            equippedItemSlot3Pos = new Vector3(itemSlot1Pos.x, 4.2f, itemSlot1Pos.z);
+            equippedItemSlot2Pos = new Vector3(itemSlot2Pos.x, 4.2f, itemSlot2Pos.z);
+            equippedItemSlot3Pos = new Vector3(itemSlot3Pos.x, 4.2f, itemSlot3Pos.z);
             itemModelSlot1Pos = new Vector3(itemSlot1Pos.x, 1f, itemSlot1Pos.z);
-            itemModelSlot2Pos = new Vector3(itemSlot1Pos.x, 1f, itemSlot1Pos.z);
-            itemModelSlot3Pos = new Vector3(itemSlot1Pos.x, 1f, itemSlot1Pos.z);
+            itemModelSlot2Pos = new Vector3(itemSlot2Pos.x, 1f, itemSlot2Pos.z);
+            itemModelSlot3Pos = new Vector3(itemSlot3Pos.x, 1f, itemSlot3Pos.z);
 
             ChangeStage(1);
             UpdateStats();
