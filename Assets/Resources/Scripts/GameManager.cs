@@ -253,14 +253,9 @@ namespace KI
         private void CreateGift(Vector3 itemSlotPos, Vector3 equippedItemSlotPos, Vector3 itemModelSlotPos, out ItemCard card, out ItemCard equippedCard, out ItemModel itemModel)
         {
             Item item = CreateTestItem();
-            card = null;
-            equippedCard = null;
-            if (Item.ItemType.POTION == item.type)
-            {
-                Debug.Log("WEROIJ");
-            }
+            equippedCard = null; // Prevent error from not using reference arg
 
-                Item equippedItem = item.type != Item.ItemType.POTION ? player.GetItem(item.type) : null; // Potions can't use GetItem()
+            Item equippedItem = item.type != Item.ItemType.POTION ? player.GetItem(item.type) : null; // Potions can't use GetItem()
             card = ((GameObject)Instantiate(cardPrefab, itemSlotPos, cardRotation)).GetComponent<ItemCard>();
             card.CreateCard(item, equippedItem);
 

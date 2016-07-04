@@ -65,9 +65,13 @@ namespace KI
             {
                 string statName = GameManager.instance.GameData.GetItemName(item.type, item.level);
                 name.text = statName + " Potion";
+                TextMesh line1 = parent.Find("PopularityValue").GetComponent<TextMesh>();
+                line1.text = "+25 " + statName;
+                TextMesh line2 = parent.Find("VoiceValue").GetComponent<TextMesh>();
+                line2.text = "For 20 seconds";
                 name.color = greenColor;
-                parent.Find("PopularityValue").GetComponent<TextMesh>().text = "+25 " + statName;
-                parent.Find("VoiceValue").GetComponent<TextMesh>().text = "For 20 seconds"; // TODO Change spirit to affect this?
+                line1.color = greenColor;
+
                 // Blank out default stat texts to prevent overlap
                 parent.Find("Popularity").GetComponent<TextMesh>().text = "";
                 parent.Find("Voice").GetComponent<TextMesh>().text = "";
