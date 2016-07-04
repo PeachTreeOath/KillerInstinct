@@ -253,22 +253,42 @@ namespace KI
         private void CreateGift(Vector3 itemSlotPos, Vector3 equippedItemSlotPos, Vector3 itemModelSlotPos, out ItemCard card, out ItemCard equippedCard, out ItemModel itemModel)
         {
             Item item = CreateTestItem();
-            Item equippedItem = player.GetItem(item.type);
+            card = null;
+            equippedCard = null;
+            if (Item.ItemType.POTION == item.type)
+            {
+                Debug.Log("WEROIJ");
+            }
+
+                Item equippedItem = item.type != Item.ItemType.POTION ? player.GetItem(item.type) : null; // Potions can't use GetItem()
             card = ((GameObject)Instantiate(cardPrefab, itemSlotPos, cardRotation)).GetComponent<ItemCard>();
             card.CreateCard(item, equippedItem);
-            equippedCard = null;
-            if (equippedItem.adjective != -1)
+
+            if (equippedItem != null && equippedItem.adjective != -1) // Adjective value of -1 means there is nothing equipped
             {
                 equippedCard = ((GameObject)Instantiate(cardPrefab, equippedItemSlotPos, cardRotation)).GetComponent<ItemCard>();
                 equippedCard.CreateCard(null, equippedItem);
             }
+
             itemModel = ((GameObject)Instantiate(ResourceManager.instance.Model, itemModelSlotPos, itemRotation)).GetComponent<ItemModel>();
             itemModel.SetMesh(item.type);
         }
 
         private Item CreateTestItem()
         {
-            return new Item((Item.ItemType)UnityEngine.Random.Range(0, 5), UnityEngine.Random.Range(0, 5), UnityEngine.Random.Range(0, 5),
+            int itemLimit = player.hasEmptyPotionSlot() ? 6 : 5;
+            Item.ItemType type = (Item.ItemType)UnityEngine.Random.Range(0, itemLimit);
+
+            // Handle potions separately
+            if (type == Item.ItemType.POTION)
+            {
+                int stat = UnityEngine.Random.Range(0, 5);
+                int[] statIncreases = new int[5];
+                statIncreases[stat] = 25;
+                return new Item(type, 1, stat, statIncreases[0], statIncreases[1], statIncreases[2], statIncreases[3], statIncreases[4], 0);
+            }
+
+            return new Item(type, UnityEngine.Random.Range(0, 5), UnityEngine.Random.Range(0, 5),
                 UnityEngine.Random.Range(0, 11), UnityEngine.Random.Range(0, 11), UnityEngine.Random.Range(0, 11), UnityEngine.Random.Range(0, 11),
                 UnityEngine.Random.Range(0, 11), UnityEngine.Random.Range(0, 5));
         }
@@ -285,7 +305,7 @@ namespace KI
                 int stat = UnityEngine.Random.Range(0, 5);
                 int[] statIncreases = new int[5];
                 statIncreases[stat] = 25;
-                return new Item(type, 1, 1, statIncreases[0], statIncreases[1], statIncreases[2], statIncreases[3], statIncreases[4], stat);
+                return new Item(type, 1, stat, statIncreases[0], statIncreases[1], statIncreases[2], statIncreases[3], statIncreases[4], 0);
             }
 
             int pop = UnityEngine.Random.Range(1, stage * 2);

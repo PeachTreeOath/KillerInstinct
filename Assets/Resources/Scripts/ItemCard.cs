@@ -6,13 +6,13 @@ namespace KI
 {
     public class ItemCard : MonoBehaviour
     {
-        static Color whiteColor;
-        static Color greenColor;
-        static Color blueColor;
-        static Color purpleColor;
-        static Color orangeColor;
-        static Color redColor;
-        static Color[] colorArray;
+        public static Color whiteColor;
+        public static Color greenColor;
+        public static Color blueColor;
+        public static Color purpleColor;
+        public static Color orangeColor;
+        public static Color redColor;
+        public static Color[] colorArray;
 
         private Item item;
 
@@ -55,9 +55,28 @@ namespace KI
             {
                 item = equippedItem;
             }
+
             GetComponent<MeshRenderer>().material = ResourceManager.instance.GetMaterial(item.rarity);
             Transform parent = transform.Find("BG");
             TextMesh name = parent.Find("Name").GetComponent<TextMesh>();
+
+            // Handle potions separately
+            if (item.type == Item.ItemType.POTION)
+            {
+                string statName = GameManager.instance.GameData.GetItemName(item.type, item.level);
+                name.text = statName + " Potion";
+                name.color = greenColor;
+                parent.Find("PopularityValue").GetComponent<TextMesh>().text = "+25 " + statName;
+                parent.Find("VoiceValue").GetComponent<TextMesh>().text = "For 20 seconds"; // TODO Change spirit to affect this?
+                // Blank out default stat texts to prevent overlap
+                parent.Find("Popularity").GetComponent<TextMesh>().text = "";
+                parent.Find("Voice").GetComponent<TextMesh>().text = "";
+                parent.Find("Spirit").GetComponent<TextMesh>().text = "";
+                parent.Find("Dance").GetComponent<TextMesh>().text = "";
+                parent.Find("Luck").GetComponent<TextMesh>().text = "";
+                return;
+            }
+
             name.text = GameManager.instance.GameData.GetItemAdjective(item.rarity, item.adjective) + " " + GameManager.instance.GameData.GetItemName(item.type, item.level);
             name.color = colorArray[item.rarity];
             parent.Find("PopularityValue").GetComponent<TextMesh>().text = item.popularity.ToString();

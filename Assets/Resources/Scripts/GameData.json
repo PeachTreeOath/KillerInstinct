@@ -59,6 +59,18 @@
 			"name" : "Slippers"
 		}
 	],
+	"potion" : [{
+			"name" : "Popularity"
+		}, {
+			"name" : "Voice"
+		}, {
+			"name" : "Spirit"
+		}, {
+			"name" : "Dance"
+		}, {
+			"name" : "Luck"
+		}
+	],
 	"stage" : [{
 			"text" : "Stage 1: School",
 			"fansNeeded" : 5,

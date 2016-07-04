@@ -124,7 +124,11 @@ namespace KI
                 case Item.ItemType.POTION:
                     for (int i = 0; i < potions.Length; i++)
                     {
-                        if (potions[i] == null) potions[i] = newItem;
+                        if (potions[i] == null)
+                        {
+                            potions[i] = newItem;
+                            break;
+                        }
                     }
                     break;
                 default:
