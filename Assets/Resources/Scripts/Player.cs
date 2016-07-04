@@ -25,14 +25,9 @@ namespace KI
         private List<Item> activePotions;
         private float duration; // Used only for potion timers
 
-        private Text hpText;
-        private Image hpBar;
-
         void Awake()
         {
             Transform parent = GameObject.Find("BattleCanvas").transform.Find("PlayerHp");
-            hpText = parent.Find("PlayerHpText").GetComponent<Text>();
-            hpBar = parent.Find("PlayerHpBG").GetComponent<Image>();
         }
 
         // Use this for initialization
