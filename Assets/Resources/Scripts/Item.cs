@@ -27,6 +27,8 @@ namespace KI
         public int dance;
         public int luck;
 
+        public float duration; // Used only for potion timers
+
         public Item(ItemType type, int rarity, int level, int popularity, int voice, int spirit, int dance, int luck, int adjective)
         {
             this.type = type;

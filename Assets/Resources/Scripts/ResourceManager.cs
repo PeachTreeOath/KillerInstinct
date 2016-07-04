@@ -41,6 +41,7 @@ namespace KI
             meshMap.Add(Item.ItemType.WEAPON, Resources.Load<Mesh>("Models/weapon"));
             meshMap.Add(Item.ItemType.PANTS, Resources.Load<Mesh>("Models/pants"));
             meshMap.Add(Item.ItemType.SHOES, Resources.Load<Mesh>("Models/shoes"));
+            meshMap.Add(Item.ItemType.POTION, Resources.Load<Mesh>("Models/potion"));
         }
 
         // Update is called once per frame

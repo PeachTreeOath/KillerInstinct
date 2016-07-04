@@ -147,9 +147,8 @@ namespace KI
 
         private void CalculateDamage()
         {
-
             // Do 1-5 dmg by default
-            int dmg = UnityEngine.Random.Range(1, 6) + (int)(player.statVoice * 0.33f);
+            int dmg = UnityEngine.Random.Range(1, 6) + player.GetVoiceCalculation();
             enemyHp -= dmg;
 
             if (enemyHp <= 0)
@@ -167,7 +166,7 @@ namespace KI
         private void KillMonster()
         {
             int levelBonus = stage * stage;
-            fans += player.statPop / 4 + levelBonus;
+            fans += player.GetPopularityCalculation() + levelBonus;
             RevealGifts(); //TODO delay this
         }
 
@@ -248,7 +247,7 @@ namespace KI
             {
                 int stat = UnityEngine.Random.Range(0, 5);
                 int[] statIncreases = new int[5];
-                statIncreases[stat] = 25;
+                statIncreases[stat] = player.GetSpiritCalculation();
                 return new Item(type, 1, stat, statIncreases[0], statIncreases[1], statIncreases[2], statIncreases[3], statIncreases[4], 0);
             }
 
@@ -259,7 +258,7 @@ namespace KI
 
         private Item CreateItem()
         {
-            int dieRoll = UnityEngine.Random.Range(0, 100) + player.statLuck / 2;
+            int dieRoll = UnityEngine.Random.Range(0, 100) + player.GetLuckCalculation();
             int itemLimit = player.HasEmptyPotionSlot() ? 6 : 5;
             Item.ItemType type = (Item.ItemType)UnityEngine.Random.Range(0, itemLimit);
 

@@ -23,12 +23,6 @@ namespace KI
 
         public Item[] potions;
         private List<Item> activePotions;
-        private float duration; // Used only for potion timers
-
-        void Awake()
-        {
-            Transform parent = GameObject.Find("BattleCanvas").transform.Find("PlayerHp");
-        }
 
         // Use this for initialization
         void Start()
@@ -53,7 +47,14 @@ namespace KI
         // Update is called once per frame
         void Update()
         {
-
+            foreach (Item potion in activePotions.ToArray())
+            {
+                potion.duration -= Time.deltaTime;
+                if (potion.duration < 0)
+                {
+                    activePotions.Remove(potion);
+                }
+            }
         }
 
         public bool HasEmptyPotionSlot()
@@ -68,6 +69,10 @@ namespace KI
         public void DrinkPotion(int slot)
         {
             Item potion = potions[slot];
+            potion.duration = GetSpiritCalculation(); ;
+            activePotions.Add(potion);
+            potions[slot] = null;
+            //TODO: Remove potion graphic
         }
 
 
@@ -116,6 +121,31 @@ namespace KI
                     break;
             }
             CalculateStats();
+        }
+
+        public int GetPopularityCalculation()
+        {
+            return statPop / 4;
+        }
+
+        public int GetVoiceCalculation()
+        {
+            return (int)(statVoice * 0.33f);
+        }
+
+        public int GetSpiritCalculation()
+        {
+            return statSpirit / 2 + 10;
+        }
+
+        public int GetDanceCalculation()
+        {
+            return statDance;
+        }
+
+        public int GetLuckCalculation()
+        {
+            return statLuck / 2;
         }
 
         private void CalculateStats()
