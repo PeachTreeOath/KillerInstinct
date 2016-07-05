@@ -23,6 +23,12 @@ namespace KI
 
         public Item[] potions;
         private List<Item> activePotions;
+        private StatsPanel statsPanel;
+
+        void Awake()
+        {
+            statsPanel = GameObject.Find("StatsCanvas").GetComponent<StatsPanel>();
+        }
 
         // Use this for initialization
         void Start()
@@ -42,6 +48,8 @@ namespace KI
 
             potions = new Item[3];
             activePotions = new List<Item>();
+
+            CalculateStats();
         }
 
         // Update is called once per frame
@@ -53,6 +61,7 @@ namespace KI
                 if (potion.duration < 0)
                 {
                     activePotions.Remove(potion);
+                    CalculateStats();
                 }
             }
         }
@@ -69,11 +78,11 @@ namespace KI
         public void DrinkPotion(int slot)
         {
             Item potion = potions[slot];
-            potion.duration = GetSpiritCalculation(); ;
+            potion.duration = GetSpiritCalculation();
             activePotions.Add(potion);
             potions[slot] = null;
             CalculateStats();
-            //TODO: Remove potion graphic
+            GameManager.instance.UsePotion(slot);
         }
 
 
@@ -114,6 +123,7 @@ namespace KI
                         if (potions[i] == null)
                         {
                             potions[i] = newItem;
+                            GameManager.instance.EquipPotion(i);
                             break;
                         }
                     }
@@ -165,6 +175,17 @@ namespace KI
                 statDance += item.dance;
                 statLuck += item.luck;
             }
+
+            foreach (Item item in activePotions)
+            {
+                statPop += item.popularity;
+                statVoice += item.voice;
+                statSpirit += item.spirit;
+                statDance += item.dance;
+                statLuck += item.luck;
+            }
+
+            statsPanel.UpdateStats(this);
         }
     }
 }

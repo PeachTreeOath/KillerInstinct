@@ -37,6 +37,9 @@ namespace KI
         private Vector3 itemModelSlot1Pos;
         private Vector3 itemModelSlot2Pos;
         private Vector3 itemModelSlot3Pos;
+        private Vector3 potionSlot1Pos;
+        private Vector3 potionSlot2Pos;
+        private Vector3 potionSlot3Pos;
         private Quaternion cardRotation = Quaternion.Euler(0, 90, 90);
         private Quaternion itemRotation = Quaternion.Euler(280, 90, 0);
         private ItemCard card1;
@@ -48,8 +51,10 @@ namespace KI
         private ItemModel itemModel1;
         private ItemModel itemModel2;
         private ItemModel itemModel3;
+        private ItemModel potionModel1;
+        private ItemModel potionModel2;
+        private ItemModel potionModel3;
         private GameObject cardPrefab;
-        private StatsPanel statsPanel;
 
         // Stage vars
         private int stage;
@@ -65,7 +70,6 @@ namespace KI
             Transform enemyParent = GameObject.Find("BattleCanvas").transform.Find("EnemyHp");
             enemyHpText = enemyParent.Find("EnemyHpText").GetComponent<Text>();
             enemyHpBar = enemyParent.Find("EnemyHpBG").GetComponent<Image>();
-            statsPanel = GameObject.Find("StatsCanvas").GetComponent<StatsPanel>();
         }
 
         // Use this for initialization
@@ -80,9 +84,14 @@ namespace KI
             itemModelSlot1Pos = new Vector3(itemSlot1Pos.x, 1f, itemSlot1Pos.z);
             itemModelSlot2Pos = new Vector3(itemSlot2Pos.x, 1f, itemSlot2Pos.z);
             itemModelSlot3Pos = new Vector3(itemSlot3Pos.x, 1f, itemSlot3Pos.z);
+            itemModelSlot1Pos = new Vector3(itemSlot1Pos.x, 1f, itemSlot1Pos.z);
+            itemModelSlot2Pos = new Vector3(itemSlot2Pos.x, 1f, itemSlot2Pos.z);
+            itemModelSlot3Pos = new Vector3(itemSlot3Pos.x, 1f, itemSlot3Pos.z);
+            potionSlot1Pos = new Vector3(.7f, 1.25f, -1.5f);
+            potionSlot2Pos = new Vector3(.4f, 1.25f, -1.5f);
+            potionSlot3Pos = new Vector3(.1f, 1.25f, -1.5f);
 
             ChangeStage(1);
-            UpdateStats();
             Invoke("CalculateDamage", FIGHT_SPEED);
         }
 
@@ -103,16 +112,61 @@ namespace KI
             }
             else if (Input.GetKeyDown(KeyCode.Q) && player.potions[0] != null)
             {
-                EquipItem(2);
+                Player.DrinkPotion(0);
             }
             else if (Input.GetKeyDown(KeyCode.W) && player.potions[1] != null)
             {
-                EquipItem(3);
+                Player.DrinkPotion(1);
             }
             else if (Input.GetKeyDown(KeyCode.E) && player.potions[2] != null)
             {
-                EquipItem(2);
+                Player.DrinkPotion(2);
             }
+        }
+
+        public void EquipPotion(int slot)
+        {
+            Vector3 potionSlotPos = Vector3.zero;
+            ItemModel potionModel;
+
+            switch (slot)
+            {
+                case 0:
+                    potionSlotPos = potionSlot1Pos;
+                    potionModel = potionModel1;
+                    break;
+                case 1:
+                    potionSlotPos = potionSlot2Pos;
+                    potionModel = potionModel2;
+                    break;
+                case 2:
+                    potionSlotPos = potionSlot3Pos;
+                    potionModel = potionModel3;
+                    break;
+            }
+
+            potionModel = ((GameObject)Instantiate(ResourceManager.instance.Model, potionSlotPos, Quaternion.identity)).GetComponent<ItemModel>();
+            potionModel.SetMesh(Item.ItemType.POTION);
+        }
+
+        public void UsePotion(int slot)
+        {
+            ItemModel potionModel = null;
+
+            switch (slot)
+            {
+                case 0:
+                    potionModel = potionModel1;
+                    break;
+                case 1:
+                    potionModel = potionModel2;
+                    break;
+                case 2:
+                    potionModel = potionModel3;
+                    break;
+            }
+
+            if (potionModel != null) Destroy(potionModel.gameObject);
         }
 
         private void EquipItem(int slot)
@@ -135,14 +189,8 @@ namespace KI
             if (card != null)
             {
                 player.EquipItem(card);
-                UpdateStats();
                 DestroyCards();
             }
-        }
-
-        private void UpdateStats()
-        {
-            statsPanel.UpdateStats(player);
         }
 
         private void CalculateDamage()

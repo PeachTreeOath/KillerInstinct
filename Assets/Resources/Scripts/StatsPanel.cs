@@ -7,6 +7,8 @@ namespace KI
 {
     public class StatsPanel : MonoBehaviour
     {
+        private Color greenColor;
+        private Color whiteColor;
 
         private Text popText;
         private Text voiceText;
@@ -34,6 +36,9 @@ namespace KI
             spiritText = parent.Find("Spirit").GetComponent<Text>();
             danceText = parent.Find("Dance").GetComponent<Text>();
             luckText = parent.Find("Luck").GetComponent<Text>();
+
+            greenColor = ItemCard.greenColor;
+            whiteColor = ItemCard.whiteColor;
         }
 
         // Update is called once per frame
@@ -49,6 +54,50 @@ namespace KI
             spiritText.text = spiritPrefix + player.statSpirit + " (+" + player.statSpirit / 2 + spiritSuffix;
             danceText.text = dancePrefix + player.statDance + " (+" + player.statDance + danceSuffix;
             luckText.text = luckPrefix + player.statLuck + " (+" + player.statLuck / 2 + luckSuffix;
+        }
+
+        public void TogglePotions(bool isPopularity, bool isVoice, bool isSpirit, bool isDance, bool isLuck)
+        {
+            if (isPopularity)
+            {
+                popText.color = greenColor;
+            }
+            else
+            {
+                popText.color = whiteColor;
+            }
+            if (isVoice)
+            {
+                voiceText.color = greenColor;
+            }
+            else
+            {
+                voiceText.color = whiteColor;
+            }
+            if (isSpirit)
+            {
+                spiritText.color = greenColor;
+            }
+            else
+            {
+                spiritText.color = whiteColor;
+            }
+            if (isDance)
+            {
+                danceText.color = greenColor;
+            }
+            else
+            {
+                danceText.color = whiteColor;
+            }
+            if (isLuck)
+            {
+                luckText.color = greenColor;
+            }
+            else
+            {
+                luckText.color = whiteColor;
+            }
         }
     }
 }

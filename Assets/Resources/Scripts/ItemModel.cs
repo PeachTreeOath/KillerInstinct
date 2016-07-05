@@ -10,8 +10,6 @@ namespace KI
         private static Material defaultMat;
 
         [SerializeField]
-        private float itemScale = 0.1f;
-        [SerializeField]
         private float rotateSpeed = 1000;
         private Vector3 rotateVec;
 
@@ -41,11 +39,15 @@ namespace KI
             LoadStaticResources();
 
             Mesh mesh = ResourceManager.instance.GetMesh(type);
-            transform.localScale = new Vector3(itemScale, itemScale, itemScale);
             MeshFilter filter = gameObject.AddComponent<MeshFilter>();
             filter.mesh = mesh;
             MeshRenderer renderer = gameObject.AddComponent<MeshRenderer>();
             renderer.material = defaultMat;
+        }
+
+        public void StopRotation()
+        {
+            rotateSpeed = 0;
         }
     }
 }
