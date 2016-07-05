@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 namespace KI
 {
@@ -13,6 +14,13 @@ namespace KI
         public GameObject Model { get { return model; } }
         private Dictionary<Item.ItemType, Mesh> meshMap;
 
+        public Color whiteColor;
+        public Color greenColor;
+        public Color blueColor;
+        public Color purpleColor;
+        public Color orangeColor;
+        public Color redColor;
+
         void Awake()
         {
             if (instance != null && instance != this)
@@ -21,6 +29,22 @@ namespace KI
                 return;
             }
             else { instance = this; }
+
+            LoadColors();
+        }
+
+        private void LoadColors()
+        {
+            whiteColor = Color.white;
+            greenColor = new Color();
+            ColorUtility.TryParseHtmlString("#54FF54FF", out greenColor);
+            blueColor = new Color();
+            ColorUtility.TryParseHtmlString("#5454FFFF", out blueColor);
+            purpleColor = new Color();
+            ColorUtility.TryParseHtmlString("#FF54FFFF", out purpleColor);
+            orangeColor = new Color();
+            ColorUtility.TryParseHtmlString("#FEA500FF", out orangeColor);
+            ColorUtility.TryParseHtmlString("#E16764FF", out redColor);
         }
 
         // Use this for initialization

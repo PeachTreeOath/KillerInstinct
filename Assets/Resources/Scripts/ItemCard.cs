@@ -6,12 +6,7 @@ namespace KI
 {
     public class ItemCard : MonoBehaviour
     {
-        public static Color whiteColor;
-        public static Color greenColor;
-        public static Color blueColor;
-        public static Color purpleColor;
-        public static Color orangeColor;
-        public static Color redColor;
+
         public static Color[] colorArray;
 
         private Item item;
@@ -19,20 +14,11 @@ namespace KI
         void Awake()
         {
             colorArray = new Color[5];
-            colorArray[0] = whiteColor = Color.white;
-            greenColor = new Color();
-            ColorUtility.TryParseHtmlString("#54FF54FF", out greenColor);
-            colorArray[1] = greenColor;
-            blueColor = new Color();
-            ColorUtility.TryParseHtmlString("#5454FFFF", out blueColor);
-            colorArray[2] = blueColor;
-            purpleColor = new Color();
-            ColorUtility.TryParseHtmlString("#FF54FFFF", out purpleColor);
-            colorArray[3] = purpleColor;
-            orangeColor = new Color();
-            ColorUtility.TryParseHtmlString("#FEA500FF", out orangeColor);
-            colorArray[4] = orangeColor;
-            ColorUtility.TryParseHtmlString("#E16764FF", out redColor);
+            colorArray[0] = ResourceManager.instance.whiteColor;
+            colorArray[1] = ResourceManager.instance.greenColor;
+            colorArray[2] = ResourceManager.instance.blueColor;
+            colorArray[3] = ResourceManager.instance.purpleColor;
+            colorArray[4] = ResourceManager.instance.orangeColor;
         }
 
         // Use this for initialization
@@ -69,8 +55,8 @@ namespace KI
                 line1.text = "+25 " + statName;
                 TextMesh line2 = parent.Find("VoiceValue").GetComponent<TextMesh>();
                 line2.text = "For 20 seconds";
-                name.color = greenColor;
-                line1.color = greenColor;
+                name.color = ResourceManager.instance.greenColor;
+                line1.color = ResourceManager.instance.greenColor;
 
                 // Blank out default stat texts to prevent overlap
                 parent.Find("Popularity").GetComponent<TextMesh>().text = "";
@@ -112,12 +98,12 @@ namespace KI
         {
             if (newVal > oldVal)
             {
-                mesh.color = greenColor;
+                mesh.color = ResourceManager.instance.greenColor;
                 mesh.text = "+" + (newVal - oldVal);
             }
             else if (oldVal > newVal)
             {
-                mesh.color = redColor;
+                mesh.color = ResourceManager.instance.redColor;
                 mesh.text = "-" + (oldVal - newVal);
             }
         }

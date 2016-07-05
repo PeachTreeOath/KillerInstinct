@@ -186,6 +186,14 @@ namespace KI
             }
 
             statsPanel.UpdateStats(this);
+
+            // Flip on stats panel colors based on active potions used (Item.level)
+            bool[] activePotionStats = new bool[5];
+            foreach (Item potion in activePotions)
+            {
+                activePotionStats[potion.level] = true;
+            }
+            statsPanel.TogglePotions(activePotionStats[0], activePotionStats[1], activePotionStats[2], activePotionStats[3], activePotionStats[4]);
         }
     }
 }

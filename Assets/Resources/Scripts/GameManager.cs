@@ -42,6 +42,7 @@ namespace KI
         private Vector3 potionSlot3Pos;
         private Quaternion cardRotation = Quaternion.Euler(0, 90, 90);
         private Quaternion itemRotation = Quaternion.Euler(280, 90, 0);
+        private Quaternion potionRotation = Quaternion.Euler(270, 0, 0);
         private ItemCard card1;
         private ItemCard card2;
         private ItemCard card3;
@@ -87,9 +88,9 @@ namespace KI
             itemModelSlot1Pos = new Vector3(itemSlot1Pos.x, 1f, itemSlot1Pos.z);
             itemModelSlot2Pos = new Vector3(itemSlot2Pos.x, 1f, itemSlot2Pos.z);
             itemModelSlot3Pos = new Vector3(itemSlot3Pos.x, 1f, itemSlot3Pos.z);
-            potionSlot1Pos = new Vector3(.7f, 1.25f, -1.5f);
-            potionSlot2Pos = new Vector3(.4f, 1.25f, -1.5f);
-            potionSlot3Pos = new Vector3(.1f, 1.25f, -1.5f);
+            potionSlot1Pos = new Vector3(.7f, 1.4f, -.9f);
+            potionSlot2Pos = new Vector3(.4f, 1.4f, -.9f);
+            potionSlot3Pos = new Vector3(.1f, 1.4f, -.9f);
 
             ChangeStage(1);
             Invoke("CalculateDamage", FIGHT_SPEED);
@@ -132,21 +133,21 @@ namespace KI
             switch (slot)
             {
                 case 0:
-                    potionSlotPos = potionSlot1Pos;
-                    potionModel = potionModel1;
+                    potionModel = ((GameObject)Instantiate(ResourceManager.instance.Model, potionSlot1Pos, potionRotation)).GetComponent<ItemModel>();
+                    potionModel.SetMesh(Item.ItemType.POTION);
+                    potionModel1 = potionModel;
                     break;
                 case 1:
-                    potionSlotPos = potionSlot2Pos;
-                    potionModel = potionModel2;
+                    potionModel = ((GameObject)Instantiate(ResourceManager.instance.Model, potionSlot2Pos, potionRotation)).GetComponent<ItemModel>();
+                    potionModel.SetMesh(Item.ItemType.POTION);
+                    potionModel2 = potionModel;
                     break;
                 case 2:
-                    potionSlotPos = potionSlot3Pos;
-                    potionModel = potionModel3;
+                    potionModel = ((GameObject)Instantiate(ResourceManager.instance.Model, potionSlot3Pos, potionRotation)).GetComponent<ItemModel>();
+                    potionModel.SetMesh(Item.ItemType.POTION);
+                    potionModel3 = potionModel;
                     break;
             }
-
-            potionModel = ((GameObject)Instantiate(ResourceManager.instance.Model, potionSlotPos, Quaternion.identity)).GetComponent<ItemModel>();
-            potionModel.SetMesh(Item.ItemType.POTION);
         }
 
         public void UsePotion(int slot)

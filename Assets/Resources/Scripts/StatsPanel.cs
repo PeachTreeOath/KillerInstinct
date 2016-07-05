@@ -37,8 +37,8 @@ namespace KI
             danceText = parent.Find("Dance").GetComponent<Text>();
             luckText = parent.Find("Luck").GetComponent<Text>();
 
-            greenColor = ItemCard.greenColor;
-            whiteColor = ItemCard.whiteColor;
+            greenColor = ResourceManager.instance.greenColor;
+            whiteColor = ResourceManager.instance.whiteColor;
         }
 
         // Update is called once per frame
