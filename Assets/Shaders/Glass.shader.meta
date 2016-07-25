@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 78897a01dd34da741ae331d46d3807cc
+ShaderImporter:
+  defaultTextures:
+  - _MainTex: {instanceID: 0}
+  - _AlphaTex: {instanceID: 0}
+  - _CubeTex: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
